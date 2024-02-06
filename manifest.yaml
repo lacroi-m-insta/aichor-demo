@@ -19,7 +19,7 @@ spec:
       count: 1
       resources:
         cpus: 1
-        ramRatio: 3
+        ramRatio: 2
         shmSizeGB: 0
         accelerators: # optional
           gpu:
