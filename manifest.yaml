@@ -2,37 +2,36 @@ kind: AIchorManifest
 apiVersion: 0.2.2
 
 builder:
-  image: image
-  context: pytorch-demo
+  image: raytune-pong
+  context: raytune-pong # raytune-pong folder
   dockerfile: ./Dockerfile
 
 spec:
-  operator: pytorch
-  image: image
-  command: "python3 src/main.py"
+  operator: kuberay
+  image: raytune-pong
+  command: "python main.py"
 
-  tensorboard:
+  debug:
+    jupyter: false
+
+  tensorboard: # optional, disabled by default
     enabled: true
 
   types:
-    Master:
-      count: 1
+    Head:
       resources:
-        cpus: 8
-        ramRatio: 4
+        cpus: 6
+        ramRatio: 6
         accelerators: # optional
           gpu:
             count: 1
+            product: NVIDIA-A100-SXM4-40GB
             type: gpu
-            product: nvidia-tesla-t4
-    Worker:
-      count: 1
-      resources:
-        cpus: 8
-        ramRatio: 4
-        accelerators: # optional
-          gpu:
-            count: 1
-            type: gpu
-            product: nvidia-tesla-t4
 
+    Workers:
+      - name: cpu-workers
+        count: 5
+        resources:
+          cpus: 6
+          ramRatio: 2
+          shmSizeGB: 0
