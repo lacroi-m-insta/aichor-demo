@@ -15,7 +15,7 @@ spec:
     jupyter: false
 
   tensorboard: # optional, disabled by default
-    enabled: true
+    enabled: false
 
   types:
     Head:
@@ -30,7 +30,7 @@ spec:
 
     Workers:
       - name: cpu-workers
-        count: 2
+        count: 1
         resources:
           cpus: 1
           ramRatio: 1
