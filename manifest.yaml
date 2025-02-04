@@ -21,7 +21,7 @@ spec:
     Head:
       resources:
         cpus: 1
-        ramRatio: 1
+        ramRatio: 2
         accelerators: # optional
           gpu:
             count: 0
