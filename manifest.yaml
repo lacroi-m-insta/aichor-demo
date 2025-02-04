@@ -7,9 +7,9 @@ builder:
   dockerfile: ./build/Dockerfile
 
 spec:
-  operator: jax
+  operator: batchjob
   image: image
-  command: "python3 -u main.py --operator=jax --sleep=300 --tb-write=True"
+  command: "python3 -u main.py --operator=batchjob --sleep=300 --tb-write=True"
 
   tensorboard:
     enabled: true
@@ -21,3 +21,4 @@ spec:
         cpus: 1
         ramRatio: 2
         shmSizeGB: 0
+
