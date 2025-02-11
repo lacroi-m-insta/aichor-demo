@@ -5,7 +5,7 @@ builder:
   image: image
   dockerfile: ./dockerfiles/Dockerfile
   context: .
-
+  
 spec:
   operator: tf
   image: image
