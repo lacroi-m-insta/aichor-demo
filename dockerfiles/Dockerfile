@@ -4,7 +4,7 @@ RUN pip install tensorboardX boto3
 
 WORKDIR /app
 COPY ./src ./src
-COPY main.py .
+COPY main.py . 
 
 
 RUN --mount=type=cache,target=/root/.cache/uv \
