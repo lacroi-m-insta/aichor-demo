@@ -2,14 +2,14 @@ kind: AIchorManifest
 apiVersion: 0.2.2
 
 builder:
-  image: xgboost-demo
-  context: xgboost-demo
-  dockerfile: ./Dockerfile
+  image: image
+  dockerfile: ./build/Dockerfile
+  context: .
 
 spec:
   operator: xgboost
-  image: xgboost-demo
-  command: "python src/train.py"
+  image: image
+  command: "python3 -u main.py --operator=xgboost --sleep=300 --tb-write=True"
 
   tensorboard:
     enabled: true
@@ -18,12 +18,13 @@ spec:
     Master:
       count: 1
       resources:
-        cpus: 2
+        cpus: 1
         ramRatio: 2
         shmSizeGB: 0
     Worker:
       count: 1
       resources:
-        cpus: 2
+        cpus: 1
         ramRatio: 2
         shmSizeGB: 0
+
