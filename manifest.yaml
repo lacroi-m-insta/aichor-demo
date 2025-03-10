@@ -3,28 +3,21 @@ apiVersion: 0.2.2
 
 builder:
   image: image
+  context: smoke-test # smoke-test folder
   dockerfile: ./build/Dockerfile
-  context: .
 
 spec:
-  operator: xgboost
+  operator: tf
   image: image
-  command: "python3 -u mmmain.py --operator=xgboost --sleep=300000 --tb-write=True"
+  command: "python3 -u main.py --operator=tf --sleep=9999999 --tb-write=True"
 
   tensorboard:
     enabled: true
 
   types:
-    Master:
-      count: 1
-      resources:
-        cpus: 1
-        ramRatio: 2
-        shmSizeGB: 0
     Worker:
       count: 1
       resources:
         cpus: 1
         ramRatio: 2
         shmSizeGB: 0
-
