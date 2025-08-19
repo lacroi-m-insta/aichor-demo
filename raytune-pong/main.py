@@ -5,11 +5,12 @@ from ray import tune, train
 
 if __name__ == "__main__":
     fs = pyarrow.fs.S3FileSystem(endpoint_override=os.environ["AWS_ENDPOINT_URL"])
-    tensorboard_path = os.getenv('AICHOR_TENSORBOARD_PATH')[5:] # Get path 
+    tensorboard_path = os.getenv('AICHOR_TENSORBOARD_PATH')[5:] # Get path
 
     # ray.init(local_mode=True)
     ray.init(address=os.environ.get("RAY_ADDRESS", "auto"))
 
+    os._exit(1)
     tuner = tune.Tuner(
         "PPO",
         tune_config=tune.TuneConfig(
