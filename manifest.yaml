@@ -2,24 +2,37 @@ kind: AIchorManifest
 apiVersion: 0.2.2
 
 builder:
-  image: image
-  context: smoke-test # smoke-test folder
-  dockerfile: ./build/Dockerfile
+  image: raytune-pong
+  context: raytune-pong # raytune-pong folder
+  dockerfile: ./Dockerfile
 
 spec:
-  operator: jax
-  image: image
-  command: "python3 -u main.py --operator=jax --sleep=1 --tb-write=True"
+  operator: kuberay
+  image: raytune-pong
+  command: "python main.py"
 
-  tensorboard:
+  debug:
+    jupyter: false
+
+  tensorboard: # optional, disabled by default
     enabled: true
 
   types:
-    Worker:
-      count: 1
+    Head:
       resources:
         cpus: 1
-        ramRatio: 2
-        shmSizeGB: 0
+        ramRatio: 1
+        accelerators: # optional
+          gpu:
+            count: 0
+            product: NVIDIA-A100-SXM4-40GB
+            type: gpu
 
+    Workers:
+      - name: cpu-workers
+        count: 1
+        resources:
+          cpus: 1
+          ramRatio: 1
+          shmSizeGB: 0
 
