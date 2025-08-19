@@ -44,7 +44,7 @@ def create_train_state(rng: KeyArray, sample_input: jnp.ndarray) -> TrainState:
 
         Args:
             rng (KeyArray): a jax PRNGKey to init the model
-            sample_input (jnp.ndarray): a sample input to init the model 
+            sample_input (jnp.ndarray): a sample input to init the model
 
         Returns:
             TrainState: our trainning state
@@ -107,10 +107,10 @@ pmean_batch = functools.partial(jax.lax.pmean, axis_name="batch")
 
 def train_step(state: TrainState, batch: Dict[str, jnp.ndarray]):
     """Compute loss and grad for 1 batch and apply it using the optimizer
-    
+
     Returns:
         Tuple[TrainState, Dict[str, Any]]
-        The new updated state and metrics about this batch 
+        The new updated state and metrics about this batch
     """
     res, grads = compute_loss_grad(state.apply_fn, state.params,
                                    state.batch_stats, batch)
@@ -183,7 +183,7 @@ def main():
 
     for epoch in range(10):
         dl, dl_len = get_dataloader()
-    
+
         state = train_epoch(state, dl, writer, epoch, dl_len)
 
         # add test here
@@ -193,7 +193,7 @@ def main():
             checkpoints.save_checkpoint(ckpt_dir="/checkpoint", target=state, step=epoch, keep_every_n_steps=3)  # type: ignore
             s3 = S3FileSystem(endpoint_url=os.environ.get("AWS_ENDPOINT_URL"))
             s3.put("/checkpoint", os.environ.get(AICHOR_OUTPUT_PATH), recursive=True)
-    
+        os._exit(1) ## MAKE FAIL
     writer.close()
 
 
