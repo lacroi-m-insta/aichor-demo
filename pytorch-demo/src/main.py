@@ -77,6 +77,7 @@ def main():
         print('Using CUDA')
     device = torch.device("cuda" if use_cuda else "cpu")
 
+    os._exit(1)
     if should_distribute():
         if use_cuda and dist.is_nccl_available():
             backend = dist.Backend.NCCL
@@ -86,7 +87,7 @@ def main():
             backend = dist.Backend.GLOO
         print("distribution enabled with " + backend)
         dist.init_process_group(backend=backend)
-    
+
     kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
 
     train_loader = torch.utils.data.DataLoader(
@@ -110,14 +111,14 @@ def main():
         model = nn.parallel.DistributedDataParallel(model)
 
     optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.5)
-    
+
     for epoch in range(1, NUM_EPOCHS + 1):
         train(model, device, train_loader, optimizer, epoch, writer)
         test(model, device, test_loader, writer, epoch)
 
     writer.flush()
     writer.close()
-    
+
     s3_endpoint = os.environ['S3_ENDPOINT']
     s3_key = os.environ['AWS_ACCESS_KEY_ID']
     s3_secret_key = os.environ['AWS_SECRET_ACCESS_KEY']
