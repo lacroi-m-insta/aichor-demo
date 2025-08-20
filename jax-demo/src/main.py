@@ -176,6 +176,8 @@ def main():
         train_loader = jax_utils.prefetch_to_device(train_loader, 2)
         return train_loader, dataset_len
 
+    print("exit 1")
+    os._exit(1) ## MAKE FAIL
     state = create_train_state(rng, jnp.ones((BATCH_SIZE, 32, 32, 3)))
 
     state = jax_utils.replicate(state)
@@ -193,7 +195,6 @@ def main():
             checkpoints.save_checkpoint(ckpt_dir="/checkpoint", target=state, step=epoch, keep_every_n_steps=3)  # type: ignore
             s3 = S3FileSystem(endpoint_url=os.environ.get("AWS_ENDPOINT_URL"))
             s3.put("/checkpoint", os.environ.get(AICHOR_OUTPUT_PATH), recursive=True)
-        os._exit(1) ## MAKE FAIL
     writer.close()
 
 
