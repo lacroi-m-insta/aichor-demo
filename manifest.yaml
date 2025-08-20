@@ -1,15 +1,16 @@
+# yaml-language-server: $schema=https://api.aichor.dev/schema/latest/manifest.schema.json
 kind: AIchorManifest
 apiVersion: 0.2.2
 
 builder:
-  image: image
-  context: pytorch-demo
+  image: xgboost-demo
+  context: xgboost-demo
   dockerfile: ./Dockerfile
 
 spec:
-  operator: pytorch
-  image: image
-  command: "python3 src/main.py"
+  operator: xgboost
+  image: xgboost-demo
+  command: "python src/train.py"
 
   tensorboard:
     enabled: true
@@ -21,20 +22,9 @@ spec:
         cpus: 1
         ramRatio: 1
         shmSizeGB: 0
-        accelerators: # optional
-          gpu:
-            count: 0
-            type: gpu
-            product: NVIDIA-A100-SXM4-80GB-MIG-3g.40gb
     Worker:
       count: 1
       resources:
         cpus: 1
         ramRatio: 1
         shmSizeGB: 0
-        accelerators: # optional
-          gpu:
-            count: 0
-            type: gpu
-            product: NVIDIA-A100-SXM4-80GB-MIG-3g.40gb
-
