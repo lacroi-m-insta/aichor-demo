@@ -1,30 +1,26 @@
-# yaml-language-server: $schema=https://api.aichor.dev/schema/latest/manifest.schema.json
 kind: AIchorManifest
 apiVersion: 0.2.2
 
 builder:
-  image: xgboost-demo
-  context: xgboost-demo
+  image: jax-demo
+  context: jax-demo # jax-demo folder
   dockerfile: ./Dockerfile
 
 spec:
-  operator: xgboost
-  image: xgboost-demo
-  command: "python src/train.py"
-
+  operator: jax
+  image: jax-demo
+  command: "python3 -u /app/main.py"
   tensorboard:
     enabled: true
-
   types:
-    Master:
-      count: 1
-      resources:
-        cpus: 1
-        ramRatio: 1
-        shmSizeGB: 0
     Worker:
       count: 1
       resources:
         cpus: 1
-        ramRatio: 1
+        ramRatio: 1 # = 4 cpus * 4 ramRatios = 16GB
         shmSizeGB: 0
+        accelerators:
+          gpu:
+            count: 0
+            type: gpu
+            product: Tesla-V100-SXM3-32GB
