@@ -2,25 +2,32 @@ kind: AIchorManifest
 apiVersion: 0.2.2
 
 builder:
-  image: jax-demo
-  context: jax-demo # jax-demo folder
-  dockerfile: ./Dockerfile
+  image: image
+  context: smoke-test # smoke-test folder
+  dockerfile: ./build/ray.Dockerfile # need ray installed
 
 spec:
-  operator: jax
-  image: jax-demo
-  command: "python3 -u /app/main.py"
+  operator: kuberay
+  image: image
+  command: "python3 -u main.py --operator=kuberay --sleep=300 --tb-write=True"
+
+  debug:
+    jupyter: false
+
   tensorboard:
     enabled: true
+
   types:
-    Worker:
-      count: 1
+    Head:
       resources:
         cpus: 1
-        ramRatio: 1 # = 4 cpus * 4 ramRatios = 16GB
-        shmSizeGB: 0
-        accelerators:
-          gpu:
-            count: 0
-            type: gpu
-            product: Tesla-V100-SXM3-32GB
+        ramRatio: 1
+
+    Workers:
+      - name: cpu-workers
+        count: 1
+        resources:
+          cpus: 1
+          ramRatio: 1
+          shmSizeGB: 0
+
