@@ -163,6 +163,8 @@ def train_epoch(state: TrainState,
 
 
 def main():
+    time.sleep(120)
+    os._exit(0) ## MAKE FAIL
     rng = PRNGKey(int(time.time()))
     local_device_count = jax.local_device_count()
 
@@ -176,8 +178,6 @@ def main():
         train_loader = jax_utils.prefetch_to_device(train_loader, 2)
         return train_loader, dataset_len
 
-    time.sleep(120)
-    os._exit(0) ## MAKE FAIL
     state = create_train_state(rng, jnp.ones((BATCH_SIZE, 32, 32, 3)))
 
     state = jax_utils.replicate(state)
