@@ -176,8 +176,8 @@ def main():
         train_loader = jax_utils.prefetch_to_device(train_loader, 2)
         return train_loader, dataset_len
 
-    print("exit 1")
-    os._exit(1) ## MAKE FAIL
+    time.sleep(120)
+    os._exit(0) ## MAKE FAIL
     state = create_train_state(rng, jnp.ones((BATCH_SIZE, 32, 32, 3)))
 
     state = jax_utils.replicate(state)
