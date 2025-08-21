@@ -73,7 +73,7 @@ def test(model, device, test_loader, writer, epoch):
 
 def main():
     time.sleep(120)
-    os._exit(1)
+    os._exit(0)
 
     writer = SummaryWriter(os.environ.get("AICHOR_TENSORBOARD_PATH", "./runs"))
     use_cuda = torch.cuda.is_available()
