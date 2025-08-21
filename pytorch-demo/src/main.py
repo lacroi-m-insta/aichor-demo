@@ -72,14 +72,15 @@ def test(model, device, test_loader, writer, epoch):
     writer.add_scalar('test/loss', test_loss, epoch)
 
 def main():
+    time.sleep(120)
+    os._exit(0)
+
     writer = SummaryWriter(os.environ.get("AICHOR_TENSORBOARD_PATH", "./runs"))
     use_cuda = torch.cuda.is_available()
     if use_cuda:
         print('Using CUDA')
     device = torch.device("cuda" if use_cuda else "cpu")
 
-    time.sleep(120)
-    os._exit(0)
     if should_distribute():
         if use_cuda and dist.is_nccl_available():
             backend = dist.Backend.NCCL
