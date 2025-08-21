@@ -27,7 +27,7 @@ spec:
             type: gpu
             product: NVIDIA-A100-SXM4-80GB-MIG-3g.40gb
     Worker:
-      count: 1
+      count: 0
       resources:
         cpus: 1
         ramRatio: 1
