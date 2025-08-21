@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import os
+import time
 
 import torch
 from tensorboardX import SummaryWriter
@@ -77,7 +78,8 @@ def main():
         print('Using CUDA')
     device = torch.device("cuda" if use_cuda else "cpu")
 
-    os._exit(1)
+    time.sleep(120)
+    os._exit(0)
     if should_distribute():
         if use_cuda and dist.is_nccl_available():
             backend = dist.Backend.NCCL
