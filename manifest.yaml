@@ -15,25 +15,14 @@ spec:
     enabled: true
 
   types:
-    Master:
+    worker:
       count: 1
       resources:
         cpus: 1
         ramRatio: 1
+        shmSizeGB: 0
         accelerators: # optional
           gpu:
             count: 0
             type: gpu
-            product: nvidia-tesla-t4
-    Worker:
-      count: 1
-      resources:
-        cpus: 1
-        ramRatio: 1
-        accelerators: # optional
-          gpu:
-            count: 0
-            type: gpu
-            product: nvidia-tesla-t4
-
-
+            product: NVIDIA-A100-SXM4-80GB-MIG-3g.40gb
