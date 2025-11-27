@@ -1,31 +1,18 @@
 kind: AIchorManifest
-apiVersion: 0.2.2
-
-builder:
-  image: image
-  context: pytorch-demo
-  dockerfile: ./Dockerfile
-
 spec:
-  operator: pytorch
-  image: image
-  command: "python3 src/main.py"
-
-  tensorboard:
-    enabled: true
-
-  types:
-    worker:
-      count: 1
-      resources:
-        cpus: 1
-        ramRatio: 1
-        shmSizeGB: 0
-        accelerators: # optional
-          gpu:
-            count: 0
-            type: gpu
-            product: NVIDIA-A100-SXM4-80GB-MIG-3g.40gb
+ operator: slurm
+ #command: nextflow run process_outputs.nf -with-report $AICHOR_OUTPUT_BUCKET_NEXTFLOW_PATH
+ command: pwd >> /mnt/shared/DEBUG_PWD.txt && for i in {1..10}; do for j in {1..10}; do echo $((j**6)); done; echo "Completed $i"; done
+ types:  
+  job:      
+   ntasks: 1                 
+   #nodes: 1          
+   cpus_per_task: 1          
+   memory_per_cpu: 1G   
+   time: 01:00:00       
+   #partition: compute  
+   #constraint: g5xlarge 
+   #gres: gpu:1
 
 
 
