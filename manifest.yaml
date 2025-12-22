@@ -9,7 +9,7 @@ builder:
 spec:
   operator: jax
   image: jax-demo
-  command: "python3 -u /app/main.py"
+  command: "env"
   tensorboard:
     enabled: true
   types:
