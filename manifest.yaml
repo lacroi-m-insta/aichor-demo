@@ -16,14 +16,15 @@ spec:
     worker:
       count: 1
       resources:
-        cpus: 2
-        ramRatio: 1 # = 4 cpus * 4 ramRatios = 16GB
+        cpus: 1
+        ramRatio: 1
         shmSizeGB: 0
         accelerators:
           gpu:
             count: 0
             type: gpu
             product: Tesla-V100-SXM3-32GB
+
 
 
 
