@@ -9,7 +9,7 @@ builder:
 spec:
   operator: jax
   image: jax-demo
-  command: "env"
+  command: "env && sleep 60"
   tensorboard:
     enabled: true
   types:
