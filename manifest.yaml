@@ -2,8 +2,8 @@ kind: AIchorManifest
 apiVersion: 0.2.2
 
 builder:
-  image: jax-demo
-  context: jax-demo # jax-demo folder
+  image: pytorch-demo
+  context: pytorch-demo # folder
   dockerfile: ./Dockerfile
 
 spec:
