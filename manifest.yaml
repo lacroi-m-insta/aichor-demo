@@ -7,8 +7,8 @@ builder:
   dockerfile: ./Dockerfile
 
 spec:
-  operator: pytorch
-  image: pytorch-demo
+  operator: jax
+  image: jax-demo
   command: "env && sleep 2"
   tensorboard:
     enabled: true

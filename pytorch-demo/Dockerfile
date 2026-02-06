@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:1.13.1-cuda11.6-cudnn8-runtime
+FROM pytorch/pytorch:2.1.0-cuda11.8-cudnn8-runtime
 
 RUN mkdir -p /opt/app/src
 WORKDIR /opt/app
