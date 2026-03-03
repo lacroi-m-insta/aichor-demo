@@ -9,15 +9,7 @@ builder:
 spec:
   operator: jax
   image: jax-demo
-  command: |
-   for i in {0..10000}
-   do
-   if [ $(($i % 2)) -eq 0  ]
-   then
-        echo "Number: $i and is even."
-   else
-        echo "Number: $i and is odd."
-   fi
+  command: "env && sleep 2"
   tensorboard:
     enabled: true
   types:
