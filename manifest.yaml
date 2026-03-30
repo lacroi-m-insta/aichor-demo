@@ -7,6 +7,7 @@ builder:
   dockerfile: ./Dockerfile
 
 spec:
+  engineName: import-bnt-aws-dev
   operator: jax
   image: jax-demo
   command: "env && sleep 2"
