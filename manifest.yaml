@@ -7,7 +7,7 @@ builder:
   dockerfile: ./Dockerfile
 
 spec:
-  engineName: import-bnt-aws-dev
+  engineName: mlacroix-aip-2957
   operator: jax
   image: jax-demo
   command: "env && sleep 2"
