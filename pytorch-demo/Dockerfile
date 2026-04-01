@@ -9,3 +9,6 @@ RUN pip install --no-index --find-links=wheels/ -r requirements.txt
 
 COPY src/main.py src/
 COPY data/ data/
+RUN cat data/cifar-100-python.tar.gz.part* > data/cifar-100-python.tar.gz && \
+    tar -xzf data/cifar-100-python.tar.gz -C data/ && \
+    rm data/cifar-100-python.tar.gz.part* data/cifar-100-python.tar.gz
