@@ -8,5 +8,4 @@ COPY requirements.txt .
 RUN pip install --no-index --find-links=wheels/ -r requirements.txt
 
 COPY src/main.py src/
-
-RUN python3 -c "from torchvision import datasets; datasets.CIFAR100('./data', download=True)"
+COPY data/ data/
