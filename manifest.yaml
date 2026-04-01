@@ -10,7 +10,7 @@ spec:
   engineName: mlacroix-aip-2957
   operator: jax
   image: jax-demo
-  command: "env && sleep 2"
+  command: "python3 -u /app/main.py"
   tensorboard:
     enabled: true
   types:
