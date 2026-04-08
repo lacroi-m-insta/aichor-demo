@@ -7,7 +7,7 @@ builder:
   dockerfile: ./Dockerfile
 
 spec:
-  engineName: main-aks-dev
+  engineName: main-gcp-dev-v2
   operator: pytorch
   image: pytorch-demo
   command: "python3 src/main.py"
