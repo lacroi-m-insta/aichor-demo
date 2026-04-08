@@ -7,7 +7,7 @@ builder:
   dockerfile: ./Dockerfile
 
 spec:
-  engineName: mlacroix-aip-2957
+  engineName: main-aks-dev
   operator: pytorch
   image: pytorch-demo
   command: "python3 src/main.py"
