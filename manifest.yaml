@@ -2,16 +2,18 @@ kind: AIchorManifest
 apiVersion: 0.2.2
 
 builder:
-  image: pytorch-demo
-  context: pytorch-demo # folder
+  image: image
+  context: pytorch-demo
   dockerfile: ./Dockerfile
 
 spec:
   operator: pytorch
-  image: pytorch-demo
+  image: image
   command: "python3 src/main.py"
+
   tensorboard:
-    enabled: true
+    enabled: false
+
   types:
     worker:
       count: 1
@@ -19,12 +21,8 @@ spec:
         cpus: 1
         ramRatio: 1
         shmSizeGB: 0
-        accelerators:
+        accelerators: # optional
           gpu:
             count: 0
             type: gpu
-            product: Tesla-V100-SXM3-32GB
-
-
-
-
+            product: NVIDIA-A100-SXM4-80GB-MIG-3g.40gb
