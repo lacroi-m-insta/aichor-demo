@@ -9,7 +9,7 @@ builder:
 spec:
   operator: pytorch
   image: image
-  command: "python3 src/main.py"
+  command: "sleep 10"
 
   tensorboard:
     enabled: false
