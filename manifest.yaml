@@ -26,3 +26,4 @@ spec:
             count: 0
             type: gpu
             product: NVIDIA-A100-SXM4-80GB-MIG-3g.40gb
+
