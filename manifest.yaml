@@ -11,7 +11,6 @@ spec:
   operator: pytorch
   image: image
   command: "sleep 10"
-
   tensorboard:
     enabled: false
   types:
