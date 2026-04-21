@@ -7,7 +7,7 @@ builder:
   dockerfile: ./Dockerfile
 
 spec:
-  engineName: main-aws-dev
+  engineName: mlacroi-3065
   operator: pytorch
   image: image
   command: "sleep 10"
