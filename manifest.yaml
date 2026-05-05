@@ -7,10 +7,10 @@ builder:
   dockerfile: ./Dockerfile
 
 spec:
-  engineName: mlacroi-3065
+  engineName: main-gcp-dev-v2
   operator: pytorch
   image: image
-  command: "sleep 10"
+  command: "echo hello && sleep 10"
   tensorboard:
     enabled: false
   types:
