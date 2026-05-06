@@ -7,7 +7,7 @@ builder:
   dockerfile: ./Dockerfile
 
 spec:
-  engineName: main-gcp-dev-v2
+  engineName: max-2992
   operator: pytorch
   image: image
   command: "echo hello && sleep 10"
