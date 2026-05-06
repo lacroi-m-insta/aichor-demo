@@ -10,9 +10,9 @@ spec:
   engineName: max-2992
   operator: pytorch
   image: image
-  command: "echo hello && sleep 10"
+  command: "echo hello && sleep 100"
   tensorboard:
-    enabled: false
+    enabled: true
   types:
     worker:
       count: 1
