@@ -5,7 +5,6 @@ builder:
   image: image
   context: pytorch-demo
   dockerfile: ./Dockerfile
-
 spec:
   operator: pytorch
   image: image
