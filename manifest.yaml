@@ -24,6 +24,5 @@ spec:
             type: gpu
             product: NVIDIA-A100-SXM4-80GB-MIG-3g.40gb
 
-
         #ephemeralStorageRequest: "1"   # 1 byte — lowest functional value
         #ephemeralStorageLimit: "1"     # must be >= request
