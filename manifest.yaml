@@ -6,6 +6,7 @@ builder:
   context: pytorch-demo
   dockerfile: ./Dockerfile
 spec:
+  engineName: "aws-bnt-v2"
   operator: pytorch
   image: image
   command: "end=$((SECONDS+5)); i=0; while [ $SECONDS -lt $end ]; do echo \"$(date +%Y-%m-%dT%H:%M:%S) INFO job=$((i%20)) worker=$((RANDOM%8)) status=running loss=0.$((RANDOM%10000)) acc=0.$((5000+RANDOM%5000)) iter=$i msg=training_step_completed\"; i=$((i+1)); sleep 0.05; done"
