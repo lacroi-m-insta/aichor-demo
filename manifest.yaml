@@ -2,30 +2,37 @@ kind: AIchorManifest
 apiVersion: 0.2.2
 
 builder:
-  image: image
-  context: pytorch-demo
-  dockerfile: ./Dockerfile
+  image: raytune-pong
+  context: raytune-pong # raytune-pong folder
+  dockerfile: ./raytune-pong/Dockerfile
+
 spec:
-  engineName: "max-3772"
-  operator: pytorch
-  image: image
+  operator: kuberay
+  image: raytune-pong
   command: "end=$((SECONDS+5)); i=0; while [ $SECONDS -lt $end ]; do echo \"$(date +%Y-%m-%dT%H:%M:%S) INFO job=$((i%20)) worker=$((RANDOM%8)) status=running loss=0.$((RANDOM%10000)) acc=0.$((5000+RANDOM%5000)) iter=$i msg=training_step_completed\"; i=$((i+1)); sleep 0.05; done"
-  tensorboard:
+  # command: "python main.py"
+
+  debug:
+    jupyter: false
+
+  tensorboard: # optional, disabled by default
     enabled: true
+
   types:
-    worker:
-      count: 1
+    Head:
       resources:
         cpus: 1
         ramRatio: 1
-        shmSizeGB: 0
         accelerators: # optional
           gpu:
             count: 0
+            product: NVIDIA-A100-SXM4-40GB
             type: gpu
-            product: NVIDIA-A100-SXM4-80GB-MIG-3g.40gb
-        #ephemeralStorageRequest: "1"   # 1 byte — lowest functional value
-        #ephemeralStorageLimit: "1"     # must be >= request
 
-
-
+    Workers:
+      - name: cpu-workers
+        count: 0
+        resources:
+          cpus: 1
+          ramRatio: 1
+          shmSizeGB: 0
