@@ -4,7 +4,7 @@ apiVersion: 0.2.2
 builder:
   image: raytune-pong
   context: raytune-pong # raytune-pong folder
-  dockerfile: ./raytune-pong/Dockerfile
+  dockerfile: ./Dockerfile
 
 spec:
   operator: kuberay
