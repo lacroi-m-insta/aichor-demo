@@ -31,7 +31,7 @@ spec:
 
     Workers:
       - name: cpu-workers
-        count: 0
+        count: 1
         resources:
           cpus: 1
           ramRatio: 1
