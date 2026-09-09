@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=https://instadeep.aichor.ai/schema/latest/manifest.schema.json
+#
+# jobset - count: 1
+# Expected: accepted, 1 worker pod(s)
+#
+# Trigger:
+#   git commit --allow-empty -m "aichor(count-scenarios/jobset/count-1.yaml): jobset, count: 1"
+
+kind: AIchorManifest
+apiVersion: 0.2.2
+
+builder:
+  image: lite
+  context: lite # lite folder
+  dockerfile: ./Dockerfile
+
+spec:
+  operator: jobset
+  image: lite
+  command: "python3 -u main.py 5"
+
+  # No debug block: debug.jupyter is kuberay-only, the Debug schema these
+  # operators share accepts `vscode` only.
+
+  tensorboard:
+    enabled: false
+
+  types:
+    worker:
+      count: 1 # <- field under test
+      resources:
+        cpus: 1
+        ramRatio: 2
+        shmSizeGB: 0
