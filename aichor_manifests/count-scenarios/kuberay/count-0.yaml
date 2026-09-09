@@ -39,3 +39,9 @@ spec:
           cpus: 1
           ramRatio: 2
           shmSizeGB: 0
+      - name: cpu-workers-2
+        count: 1 # <- field under test
+        resources:
+          cpus: 1
+          ramRatio: 2
+          shmSizeGB: 0
