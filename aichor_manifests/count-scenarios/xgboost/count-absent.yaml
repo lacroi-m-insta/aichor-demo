@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://instadeep.aichor.ai/schema/latest/manifest.schema.json
 #
 # xgboost - no count present
-# Expected: accepted, count defaults to 1 -> master + 1 worker pod(s)
+# Expected: accepted, count defaults to 1 -> 1 worker pod(s)
 #
 # Trigger:
 #   git commit --allow-empty -m "aichor(count-scenarios/xgboost/count-absent.yaml): xgboost, no count present"
@@ -19,6 +19,9 @@ spec:
   image: lite
   command: "python3 -u main.py 5"
 
+  # No master block: 0.2.3 XGBoostTypes exposes `worker` only --
+  # rank 0 is the coordinator (MASTER_ADDR points at the JobSet coordinator).
+  #
   # No debug block: debug.jupyter is kuberay-only, the Debug schema these
   # operators share accepts `vscode` only.
 
@@ -26,12 +29,6 @@ spec:
     enabled: false
 
   types:
-    master:
-      count: 1
-      resources:
-        cpus: 1
-        ramRatio: 2
-        shmSizeGB: 0
     worker:
       resources:
         cpus: 1

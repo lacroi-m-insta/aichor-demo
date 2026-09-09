@@ -13,16 +13,21 @@ kuberay (no pip install, Ray already in the base image).
 
 | | jax | jobset | kuberay | pytorch | xgboost |
 | --- | --- | --- | --- | --- | --- |
-| where `count` lives | `types.worker` | `types.worker` | `types.Workers[0]` | `types.Worker` | `types.Worker` |
+| where `count` lives | `types.worker` | `types.worker` | `types.Workers[0]` | `types.worker` | `types.worker` |
 | default when absent | 1 | 1 | **0** | 1 | 1 |
 
 `count: -1` is rejected in two independent places, so those five manifests are
 expected to fail before anything is scheduled:
 
-- the JSON schema — `count` has `minimum: 0`;
-- varys `ResourcePoolChecker` — `"<scope>.count: must be >= 0"`.
+- the SDK model — `count` is `Field(..., ge=0)`, so citadel's cloning step
+  rejects the manifest and the experiment dies at the `clone` step with
+  `manifest failed validation`. This is the one that actually fires;
+- varys `ResourcePoolChecker` — `"<scope>.count: must be >= 0"`, a second line
+  of defence that a manifest never reaches.
 
-The other fifteen validate cleanly (checked against the published 0.2.2 schema).
+The other fifteen validate cleanly against the SDK models in
+[`aichor_sdk/models/`](https://github.com/instadeepai/aichor-product/tree/main/components/aichor_sdk/src/aichor_sdk/models)
+(`AIchorManifest`, `VERSION` 0.2.3) — which is what the platform runs, see Notes.
 
 ## Expected results
 
@@ -60,9 +65,15 @@ git push
 
 - Paths in the commit message are relative to `aichor_manifests/`, which is why
   these live here rather than next to the demo they belong to.
-- Manifests are `apiVersion: 0.2.2`, matching the rest of the repo. In 0.2.3
-  pytorch and xgboost rename `Master`/`Worker` to a single lowercase `worker`,
-  so these would need reshaping to move up.
+- Manifests are `apiVersion: 0.2.2`, matching the rest of the repo, but
+  **`apiVersion` is not a version dispatch**. The SDK keeps one model set and
+  `apiVersion` is merely a `Literal` listing the accepted strings, so whatever
+  the deployed SDK ships validates every manifest regardless of what it
+  declares. Declaring 0.2.2 does *not* get 0.2.2 semantics: 0.2.2 wanted
+  `types.Master`/`types.Worker` for pytorch and xgboost, 0.2.3 replaced both
+  with a single lowercase `worker`, and 0.2.3 is what validates today. The
+  per-version files under `web/public/schema/<v>/` are historical snapshots,
+  useful for the editor's `$schema` hint but not what the platform enforces.
 - Any commit message starting with `exp` + a non-alphanumeric also triggers an
   experiment (the legacy prefix, still live) — worth knowing when writing
   ordinary commit messages in this repo.

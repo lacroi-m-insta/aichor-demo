@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://instadeep.aichor.ai/schema/latest/manifest.schema.json
 #
 # pytorch - count: 0
-# Expected: accepted, master + 0 worker pod(s)
+# Expected: accepted, 0 worker pod(s)
 #
 # Trigger:
 #   git commit --allow-empty -m "aichor(count-scenarios/pytorch/count-0.yaml): pytorch, count: 0"
@@ -19,6 +19,9 @@ spec:
   image: lite
   command: "python3 -u main.py 5"
 
+  # No master block: 0.2.3 PyTorchTypes exposes `worker` only --
+  # rank 0 is the coordinator (MASTER_ADDR points at the JobSet coordinator).
+  #
   # No debug block: debug.jupyter is kuberay-only, the Debug schema these
   # operators share accepts `vscode` only.
 
@@ -26,12 +29,6 @@ spec:
     enabled: false
 
   types:
-    master:
-      count: 1
-      resources:
-        cpus: 1
-        ramRatio: 2
-        shmSizeGB: 0
     worker:
       count: 0 # <- field under test
       resources:
