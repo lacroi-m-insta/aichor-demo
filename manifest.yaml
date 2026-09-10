@@ -9,7 +9,7 @@ builder:
   dockerfile: ./Dockerfile
 
 spec:
-  engineName: "max-3822"
+  engineName: "max-3760"
   operator: kuberay
   image: ray-lite
   rayVersion: "2.36.1" # must match the base image in ray-lite/Dockerfile
